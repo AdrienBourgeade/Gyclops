@@ -30,3 +30,16 @@
 *.exe
 *.out
 *.app
+
+# LateX
+*.aux
+*.bbl
+*.blg
+*.lof
+*.log
+*.lot
+*.lot
+*.nlo
+*.pdf
+*.gz
+*.toc
