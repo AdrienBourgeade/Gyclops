@@ -16,4 +16,30 @@ L'Utilisateur aura le choix entre plusieurs mode de fonctionnements:
   \item Faire trouver à l'application une boucle (i.e. l'utilisateur veux se promener, il configure alors ses préférences et l'algorithme cherche à coller au mieux à ces préférences)
   \item Faire trouver à l'application un trajet d'un point A à B (i.e. Fonction de GPS classique, mais l'utilisateur pourra aisément choisir ce qu'il préfère, exemple, je préfère faire un chemin un peu plus long mais uniquement sur piste cyclable).
 \end{itemize}
+
+\subsection{Description Mathématique}
+\begin{itemize}
+\item $G_{k}$ le graphe orienté qui pour chaque noeud a une valeur nulle et pour chaque arc, une valeur équivalente en kilomètres.
+\item $G_{s}$ le graphe orienté qui pour chaque noeud a une valeur nulle et pour chaque arc, une valeur équivalente au niveau de sécurité de la route, proportionnellement au trafic. Un arc de pondération nulle étant une piste cyclable.
+\item $G_{p}$ le graphe orienté qui pour chaque noeud a une valeur nulle et pour chaque arc, une valeur équivalente à la pente de la route. Un arc de pondération positive étant une montée ou du plat, un arc de pondération nulle une descente. On notera que si une route change de dénivellé avant de rencontrer un noeud, alors on ne considère que les pentes positives.
+\item $G_{t}$ le graphe orienté qui pour chaque noeud a une valeur positive ou nulle et pour chaque arc, une valeur équivalente à son attrait touristique.
+\item $G = G_{k} \cup G_{s} \cup G_{p} \cup G_{t}$
+\item $\mathbb{A}$ étant l'ensemble des Arcs.
+\item $N = card \mathbb{A}$ N est le cardinal de $\mathbb{A}$
+\item Les couts associés à chaque critères sont écrits: $c_k, c_s, c_p \ \& \ c_t \in \mathbb{N}^4$ si l'arc n'existe pas entre le noeud $i$ et le noeud $j$ alors les coefficients sont supposés infinis
+\item l'utilisateur pourra rentrer 4 coefficients nommés : $p_k, p_s, p_p \& p_t \in [0,1]^4$ 1 signifiant que ce paramètre est très important et 0, qu'il ne l'est pas du tout. Ces coefficients correspondent respectivement à l'importance donnée à la durée du parcours, à sa sécurité, à son côté sportif et à son côté touristique. Ex: le choix 1000 signifie: "Trouver le chemin le plus court". Par contre 0010 ne signifie pas "chemin le plus pentu" (qui donnerais une solution infinie), mais signifie "le chemin le plus pentu avec un écart à la solution minimale en termes de km non nul".
+\end{itemize}
+
 \section{Modélisation}
+
+Variable de décision:
+\begin{itemize}
+  \item $\alpha_{i,j} \in \llbracket 0;1 \rrbracket; i,j \in \mathbb{A} ;i \neq j $, valant 1, si l'arc du noeud $i$ au noeud $j$ est inclus dans la solution 0 sinon.
+\end{itemize}
+
+Fonction objectif:
+\begin{equation}
+  \min (p_k \cdot \sum_{i,j=1;i \neq j}^{N}\alpha_{i,j} \cdot c_k)+(p_s \cdot \sum_{i,j=1;i \neq j}^{N}\alpha_{i,j} \cdot c_s)+(p_p \cdot \sum_{i,j=1;i \neq j}^{N}\alpha_{i,j} \cdot c_p)+(p_t \cdot \sum_{i,j=1;i \neq j}^{N}\alpha_{i,j} \cdot c_t)
+\end{equation}
+
+Contraintes
