@@ -1,4 +1,19 @@
 \section{Description}
-%Decrire ici sous forme d un probleme mathematique la problematique
-
+Nous représentons les cartes sous forme de graphes orientés.
+Les Noeuds correspondent à des intersections ou à des culs de sac.
+Les Noeuds ne possèdent aucune pondération.
+Les Noeuds sont connectés entre eux via des arcs pondérés. les pondérations sont de différents
+types:
+\begin{itemize}
+  \item le kilométrage
+  \item la dangerosité
+  \item la pente
+  \item l'attrait touristique
+\end{itemize}
+L'Utilisateur aura le choix entre plusieurs mode de fonctionnements:
+\begin{itemize}
+  \item Tracer un trajet a la main (i.e. il indique les points par lesquels il veux passer, et l'algorithme trace les plus courts chemin entre ces points)
+  \item Faire trouver à l'application une boucle (i.e. l'utilisateur veux se promener, il configure alors ses préférences et l'algorithme cherche à coller au mieux à ces préférences)
+  \item Faire trouver à l'application un trajet d'un point A à B (i.e. Fonction de GPS classique, mais l'utilisateur pourra aisément choisir ce qu'il préfère, exemple, je préfère faire un chemin un peu plus long mais uniquement sur piste cyclable).
+\end{itemize}
 \section{Modélisation}
